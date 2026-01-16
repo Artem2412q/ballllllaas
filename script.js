@@ -428,7 +428,8 @@
   const CASES = [
     {
       id: '001',
-      slug: 'case/001/index.html',
+      // Flat build: cases live on a single page with anchors
+      slug: 'cases.html#case-001',
       title: 'Violet Wake',
       date: '2020-11-03',
       place: 'Davis — south edge',
@@ -438,7 +439,7 @@
     },
     {
       id: '002',
-      slug: 'case/002/index.html',
+      slug: 'cases.html#case-002',
       title: 'Mirror Deal',
       date: '2024-08-19',
       place: 'Strawberry — backlot',
@@ -448,7 +449,7 @@
     },
     {
       id: '003',
-      slug: 'case/003/index.html',
+      slug: 'cases.html#case-003',
       title: 'Quiet Claim',
       date: '2026-01-12',
       place: 'Davis — mainline',
@@ -457,6 +458,44 @@
       summary: 'Спокойное возвращение контроля: без шума, без показухи — но с чётким «это наше».'
     },
   ];
+
+  // Extra details for case modal / deep-links (flat build)
+  const CASE_DETAILS = {
+    '001': {
+      headline: 'Серия провокаций на границе и исчезновение посредника',
+      synopsis: [
+        'В Davis накапливаются «локальные искры»: чужие метки поверх фиолетового, сорванные договорённости, странные слухи.',
+        'В одну ночь посредник, который должен был закрыть спор без шума, пропадает. Район просыпается в режиме ожидания.',
+        'Ballas держат спокойный тон: сначала — сбор фактов, потом — ответы по ситуации (без показухи).'
+      ],
+      outcome:
+        'Кейс закрыт частично: конфликт не разгорелся, но утечка осталась. В хронике — как точка, с которой начинается новая осторожность.',
+      sparks: ['перекрашенные теги', 'сорванная встреча', 'посторонние машины у блоков', 'нервные разговоры в магазине на углу'],
+      cast: ['Vincent Carter', 'Monica Alvarez', 'Danielle Price']
+    },
+    '002': {
+      headline: 'Сделка, где каждый слышал не слова, а паузы',
+      synopsis: [
+        'В Strawberry готовилась тихая договорённость. Но кто-то знал слишком много — место и время стали известны третьей стороне.',
+        'Сделка не превращается в сцену: стороны отступают, оставляя за собой холодную вежливость и вопросы.',
+        'Главный итог — поиск источника утечки и восстановление доверия внутри сета.'
+      ],
+      outcome: 'Кейс закрыт как «зеркало»: не было громкого инцидента, но остался осадок. В 2026 это всплывёт снова.',
+      sparks: ['чужая информация', 'недосказанность', 'двойные обещания', 'проверки на лояльность'],
+      cast: ['Alejandro Reyes', 'Ricardo Salazar', 'Sofia Delgado']
+    },
+    '003': {
+      headline: 'Спокойное возвращение контроля без шума',
+      synopsis: [
+        'В начале 2026 район выбирает порядок вместо эскалации: Ballas действуют как структура, а не как шумная толпа.',
+        'Когда другая сторона проверяет границы агрессивно, ответ следует быстро — но точечно, без «праздника насилия».',
+        'Ключевой инструмент — дисциплина: присутствие, договорённости и уважение к своим.'
+      ],
+      outcome: 'Кейс закрыт: граница стабилизирована. Heat низкий, но «искра» остаётся в архиве как предупреждение.',
+      sparks: ['проверка границы', 'слухи о «чужих людях»', 'случайная встреча двух патрулей', 'попытка сорвать местное мероприятие'],
+      cast: ['Marcus Holloway', 'Isaiah Brooks', 'Camila Santos']
+    }
+  };
 
   // Quick index for search across key lore blocks (static pages)
   const DOCS = [
@@ -622,11 +661,15 @@
     const limit = opts.limit || null;
     const list = (limit ? CASES.slice(0, limit) : CASES);
 
+    const onCasesPage = /\/cases\.html$/i.test(location.pathname);
+
     grid.innerHTML = list.map((k) => {
-      const href = rjoin(k.slug);
+      const anchorId = `case-${k.id}`;
+      // On the cases page, use hash-only links; elsewhere, deep-link into cases.html
+      const href = onCasesPage ? `#${anchorId}` : rjoin(`cases.html#${anchorId}`);
       const tags = k.tags.map((t) => `<span class="metaPill">#${esc(t)}</span>`).join('');
       return `
-        <article class="card reveal" data-tags="${esc(k.tags.join(' '))}">
+        <article id="${esc(anchorId)}" class="card reveal" data-tags="${esc(k.tags.join(' '))}">
           <div class="cardTop">
             <div>
               <div class="h3">Case ${esc(k.id)} — ${esc(k.title)}</div>
@@ -637,7 +680,7 @@
           <p class="p">${esc(k.summary)}</p>
           <div class="metaRow">${tags}</div>
           <div style="margin-top:auto; padding-top:14px">
-            <a class="btn btn--ghost" href="${href}">Открыть кейс</a>
+            <a class="btn btn--ghost" data-case-open="${esc(k.id)}" href="${href}">Открыть кейс</a>
           </div>
         </article>
       `;
@@ -728,6 +771,76 @@
 
     renderCases('#casesGrid');
     setTimeout(apply, 0);
+
+    const openCase = (caseId, { pushHash = true } = {}) => {
+      const k = CASES.find((x) => x.id === caseId);
+      if (!k) return;
+      const d = CASE_DETAILS[caseId] || {};
+
+      const tags = (k.tags || []).map((t) => `<span class="metaPill">#${esc(t)}</span>`).join('');
+      const cast = (d.cast || []).map((n) => `<span class="metaPill">${esc(n)}</span>`).join('');
+      const syn = (d.synopsis || []).map((p) => `<p class="p">${esc(p)}</p>`).join('');
+      const sparks = (d.sparks || []).map((s) => `<li>${esc(s)}</li>`).join('');
+
+      const body = `
+        <div class="panel" style="margin-top:10px">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Case ${esc(k.id)} — ${esc(k.title)}</div>
+              <div class="panel__sub">${esc(fmtDate(k.date))} • ${esc(k.place)}</div>
+            </div>
+            <span class="badge">Heat ${esc(String(k.heat))}/5</span>
+          </div>
+          <p class="p"><strong>${esc(d.headline || k.summary || '')}</strong></p>
+          ${heatDots(k.heat)}
+          <div class="metaRow" style="margin-top:10px">${tags}</div>
+        </div>
+
+        <div class="grid2" style="margin-top:12px">
+          <div class="panel">
+            <div class="panel__head"><div><div class="panel__title">Синопсис</div><div class="panel__sub">сцена / напряжение / решение</div></div><span class="badge">story</span></div>
+            ${syn || `<p class="p">${esc(k.summary || '')}</p>`}
+          </div>
+          <div class="panel">
+            <div class="panel__head"><div><div class="panel__title">Локальные искры</div><div class="panel__sub">что поднимает Heat</div></div><span class="badge">sparks</span></div>
+            <p class="p">Триггеры для RP‑сцен (не инструкция).</p>
+            <ul class="p" style="margin:10px 0 0 18px">${sparks}</ul>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:12px">
+          <div class="panel__head"><div><div class="panel__title">Участники</div><div class="panel__sub">ключевые лица эпизода</div></div><span class="badge">cast</span></div>
+          <div class="metaRow">${cast || '<span class="note">Пока без списка.</span>'}</div>
+          <p class="p" style="margin-top:12px">${esc(d.outcome || '')}</p>
+        </div>
+      `;
+
+      openModal(`Case ${k.id}`, body);
+
+      if (pushHash) {
+        try { history.replaceState(null, '', `#case-${k.id}`); } catch (_) {}
+      }
+    };
+
+    // Open from card button
+    grid.addEventListener('click', (ev) => {
+      const a = ev.target?.closest?.('[data-case-open]');
+      if (!a) return;
+      ev.preventDefault();
+      const id = a.getAttribute('data-case-open') || '';
+      openCase(id);
+    });
+
+    // Deep-link: /cases.html#case-001
+    const hash = (location.hash || '').replace('#', '').trim();
+    if (hash.startsWith('case-')) {
+      const id = hash.replace('case-', '');
+      // wait for layout
+      setTimeout(() => {
+        document.getElementById(hash)?.scrollIntoView?.({ block: 'start', behavior: 'smooth' });
+        openCase(id, { pushHash: false });
+      }, 60);
+    }
   }
 
   // ---------- Case page ----------
@@ -743,44 +856,7 @@
       return;
     }
 
-    // A bit more detail per case (fiction)
-    const details = {
-      '001': {
-        headline: 'Серия провокаций на границе и исчезновение посредника',
-        synopsis: [
-          'В Davis накапливаются «локальные искры»: чужие метки поверх фиолетового, сорванные договорённости, странные слухи.',
-          'В одну ночь посредник, который должен был закрыть спор без шума, пропадает. Район просыпается в режиме ожидания.',
-          'Ballas держат спокойный тон: сначала — сбор фактов, потом — ответы по ситуации (без показухи).'
-        ],
-        outcome: 'Кейс закрыт частично: конфликт не разгорелся, но утечка осталась. В хронике — как точка, с которой начинается новая осторожность.',
-        sparks: ['перекрашенные теги', 'сорванная встреча', 'посторонние машины у блоков', 'нервные разговоры в магазине на углу'],
-        cast: ['Vincent Carter', 'Monica Alvarez', 'Danielle Price']
-      },
-      '002': {
-        headline: 'Сделка, где каждый слышал не слова, а паузы',
-        synopsis: [
-          'В Strawberry готовилась тихая договорённость. Но кто-то знал слишком много — место и время стали известны третьей стороне.',
-          'Сделка не превращается в сцену: стороны отступают, оставляя за собой холодную вежливость и вопросы.',
-          'Главный итог — поиск источника утечки и восстановление доверия внутри сета.'
-        ],
-        outcome: 'Кейс закрыт как «зеркало»: не было громкого инцидента, но остался осадок. В 2026 это всплывёт снова.',
-        sparks: ['чужая информация', 'недосказанность', 'двойные обещания', 'проверки на лояльность'],
-        cast: ['Alejandro Reyes', 'Ricardo Salazar', 'Sofia Delgado']
-      },
-      '003': {
-        headline: 'Спокойное возвращение контроля без шума',
-        synopsis: [
-          'В начале 2026 район выбирает порядок вместо эскалации: Ballas действуют как структура, а не как шумная толпа.',
-          'Когда другая сторона проверяет границы агрессивно, ответ следует быстро — но точечно, без «праздника насилия».',
-          'Ключевой инструмент — дисциплина: присутствие, договорённости и уважение к своим.'
-        ],
-        outcome: 'Кейс закрыт: граница стабилизирована. Heat низкий, но «искра» остаётся в архиве как предупреждение.',
-        sparks: ['проверка границы', 'слухи о «чужих людях»', 'случайная встреча двух патрулей', 'попытка сорвать местное мероприятие'],
-        cast: ['Marcus Holloway', 'Isaiah Brooks', 'Camila Santos']
-      }
-    };
-
-    const d = details[id] || {};
+    const d = CASE_DETAILS[id] || {};
 
     const castLinks = (d.cast || []).map((n) => `<span class="metaPill">${esc(n)}</span>`).join('');
     const sparks = (d.sparks || []).map((s) => `<li>${esc(s)}</li>`).join('');
