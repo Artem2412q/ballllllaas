@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ru" data-theme="dark" data-root="..">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="База персонажей Ballas: карточки, фильтры, теги." />
+  <title>Ballas — Персонажи</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Перейти к содержимому</a>
+
+  <div class="bg" aria-hidden="true">
+    <div class="bg__blob bg__blob--1"></div>
+    <div class="bg__blob bg__blob--2"></div>
+    <div class="bg__blob bg__blob--3"></div>
+    <div class="bg__mesh"></div>
+    <div class="bg__pattern"></div>
+    <div class="bg__vignette"></div>
+  </div>
+
+  <header class="topbar" id="topbar">
+    <div class="progress" aria-hidden="true"><div class="progress__bar" id="scrollProgress"></div></div>
+
+    <div class="wrap topbar__inner">
+      <a class="brand" href="./index.html" aria-label="Ballas — на главную">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__text">
+          <span class="brand__title">Ballas</span>
+          <span class="brand__sub">Characters • database</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Навигация">
+        <a class="nav__link" href="./index.html#about">Обзор</a>
+        <a class="nav__link" href="./index.html#hood">Район</a>
+        <a class="nav__link" href="./cases.html">Кейсы</a>
+        <a class="nav__link" href="./rp.html">RP‑досье</a>
+      </nav>
+
+      <div class="actions">
+        <button class="btn btn--ghost" id="themeBtn" type="button">🌙 Dark</button>
+        <button class="btn btn--ghost" id="searchBtn" type="button">Поиск</button>
+
+        <button class="iconBtn" id="menuBtn" type="button" aria-label="Меню" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="iconBtn__bar"></span>
+          <span class="iconBtn__bar"></span>
+          <span class="iconBtn__bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobileMenu" id="mobileMenu" hidden>
+      <div class="wrap mobileMenu__inner">
+        <a class="mobileMenu__link" href="./index.html">Главная</a>
+        <a class="mobileMenu__link" href="./cases.html">Кейсы</a>
+        <a class="mobileMenu__link" href="./rp.html">RP‑досье</a>
+        <div class="mobileMenu__hint">Меню закрывается по клику на пункт или по Esc.</div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap">
+      <div class="hero__grid">
+        <div>
+          <div class="chips reveal">
+            <span class="chip">cards</span>
+            <span class="chip">filters</span>
+            <span class="chip">tags</span>
+          </div>
+
+          <h1 class="h1 reveal">База персонажей</h1>
+          <p class="lead reveal">
+            Американские и латинские имена/фамилии. Даты рождения — 18+ (в расчёте на сюжет 2026). Карточки помогают быстро собрать сцену.
+          </p>
+
+          <div class="note reveal" style="margin-top:14px">
+            Ваш персонаж уникален, каждая его анкета это маленькая история огромного мира.
+          </div>
+        </div>
+
+        <div class="panel reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Поиск и фильтры</div>
+              <div class="panel__sub">по имени, роли, тегам</div>
+            </div>
+            <span class="badge">tools</span>
+          </div>
+
+          <div class="filters">
+            <input class="input" id="charSearch" type="search" placeholder="Поиск: Carter, Reyes, fixer, davis…" />
+
+            <select class="select" id="roleFilter" aria-label="Фильтр по роли">
+              <option value="">Роль: любая</option>
+              <option value="O.G. on the Streets">O.G. on the Streets</option>
+              <option value="Underboss">Underboss</option>
+              <option value="Consigliere (посредник)">Consigliere (посредник)</option>
+              <option value="Street Head">Street Head</option>
+              <option value="Logistics">Logistics</option>
+              <option value="Finance (front)">Finance (front)</option>
+              <option value="Intel / Runner">Intel / Runner</option>
+              <option value="Wheels">Wheels</option>
+              <option value="Street Soldier">Street Soldier</option>
+              <option value="Fixer">Fixer</option>
+              <option value="Trainer">Trainer</option>
+              <option value="Community">Community</option>
+            </select>
+          </div>
+
+          <div class="legend" style="margin-top:12px">
+            <button class="tagBtn" type="button" data-tag="davis">#davis</button>
+            <button class="tagBtn" type="button" data-tag="diplomacy">#diplomacy</button>
+            <button class="tagBtn" type="button" data-tag="intel">#intel</button>
+            <button class="tagBtn" type="button" data-tag="logistics">#logistics</button>
+            <button class="tagBtn" type="button" data-tag="finance">#finance</button>
+            <button class="tagBtn" type="button" data-tag="community">#community</button>
+            <button class="tagBtn" type="button" data-tag="street">#street</button>
+            <button class="tagBtn" type="button" data-tag="heat">#heat</button>
+            <button class="tagBtn" type="button" data-tag="fixer">#fixer</button>
+          </div>
+
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn btn--primary" href="./cases.html">Кейсы</a>
+            <a class="btn btn--ghost" href="./sheet_profile.html">Анкета персонажа</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" style="padding-top:0">
+      <div class="grid3" id="charactersGrid"></div>
+
+      <div class="panel reveal" style="margin-top:14px">
+        <div class="panel__head">
+          <div>
+            <div class="panel__title">Рекомендация для RP</div>
+            <div class="panel__sub">чтобы сцены были живыми</div>
+          </div>
+          <span class="badge">tips</span>
+        </div>
+        <p class="p">
+          На карточке держи три вещи: <strong>роль</strong> (что делает), <strong>ограничение</strong> (чего не делает), <strong>связь</strong> (к кому привязан).
+          Тогда любой диалог сразу становится «про людей», а не «про задания».
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap footer__inner">
+        <div>Ballas • Characters</div>
+        <button class="btn btn--ghost" id="themeBtn2" type="button">Тема</button>
+      </div>
+    </footer>
+  </main>
+
+  <button class="btn btn--primary toTop" id="toTop" type="button" aria-label="Наверх">↑ Наверх</button>
+
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close="1" tabindex="-1"></div>
+    <div class="modal__panel" role="document">
+      <div class="modal__head">
+        <div>
+          <div class="modal__title" id="modalTitle">—</div>
+        </div>
+        <button class="btn btn--ghost" data-close="1" type="button">Закрыть</button>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+      <div class="modal__foot">
+        <span class="chip">Characters</span>
+        <span class="chip">Tags</span>
+        <span class="chip">RP</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>

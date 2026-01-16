@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="ru" data-theme="dark" data-root=".">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Анкета персонажа Ballas: шаги, автосохранение, отправка в Google Sheets и генерация RP‑сцен." />
+  <title>Анкета персонажа — Сцены и отправка • Ballas</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body class="sheetPage">
+  <a class="skip" href="#main">Перейти к содержимому</a>
+
+  <div class="bg" aria-hidden="true">
+    <div class="bg__blob bg__blob--1"></div>
+    <div class="bg__blob bg__blob--2"></div>
+    <div class="bg__blob bg__blob--3"></div>
+    <div class="bg__mesh"></div>
+    <div class="bg__pattern"></div>
+    <div class="bg__vignette"></div>
+  </div>
+
+  <header class="topbar" id="topbar">
+    <div class="progress" aria-hidden="true"><div class="progress__bar" id="scrollProgress"></div></div>
+
+    <div class="wrap topbar__inner">
+      <a class="brand" href="./index.html" aria-label="Ballas — на главную">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__text">
+          <span class="brand__title">Ballas</span>
+          <span class="brand__sub">RP dossier • анкета</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Навигация">
+        <a class="nav__link" href="./index.html">RP‑досье</a>
+        <a class="nav__link" href="./cases.html">Кейсы</a>
+        <a class="nav__link" href="./characters.html">Персонажи</a>
+      </nav>
+
+      <div class="actions">
+        <button class="btn btn--ghost" id="themeBtn" type="button">🌙 Dark</button>
+        <button class="btn btn--ghost" id="searchBtn" type="button">Поиск</button>
+
+        <button class="iconBtn" id="menuBtn" type="button" aria-label="Меню" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="iconBtn__bar"></span>
+          <span class="iconBtn__bar"></span>
+          <span class="iconBtn__bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobileMenu" id="mobileMenu" hidden>
+      <div class="wrap mobileMenu__inner">
+        <a class="mobileMenu__link" href="./index.html">Главная</a>
+        <a class="mobileMenu__link" href="./index.html">RP‑досье</a>
+        <a class="mobileMenu__link" href="./cases.html">Кейсы</a>
+        <a class="mobileMenu__link" href="./characters.html">Персонажи</a>
+        <div class="mobileMenu__hint">Меню закрывается по клику на пункт или по Esc.</div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section wrap">
+      <div class="reveal" style="text-align:center; max-width: 940px; margin:0 auto">
+        <div class="eyebrow">Анкета персонажа</div>
+        <h1 class="h2">Шаг 6 — Сцены и отправка</h1>
+        <p class="p">Всё, что ты вводишь, <strong>автосохраняется</strong> в браузере. Ничего не отправляется, пока ты не нажмёшь «Отправить» на последнем шаге.</p>
+      </div>
+
+      <div class="sheetShell">
+        <aside class="sheetNav reveal" aria-label="Шаги анкеты">
+          <div class="sheetNav__head">
+            <div class="sheetNav__headTitle">Разделы</div>
+            <div class="sheetNav__headSub">клик — переход на страницу</div>
+          </div>
+
+          <nav class="sheetNav__list">
+            <a class="sheetNav__link" data-step="profile" href="index.html">
+              <span class="sheetNav__badge">1</span>
+              <span class="sheetNav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+              </span>
+              <span class="sheetNav__meta">
+                <span class="sheetNav__title">Профиль</span>
+                <span class="sheetNav__desc">имя, роль, сет, теги</span>
+              </span>
+            </a>
+
+            <a class="sheetNav__link" data-step="backstory" href="backstory.html">
+              <span class="sheetNav__badge">2</span>
+              <span class="sheetNav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20"/><path d="M6.5 2H20v20"/><path d="M6.5 2A2.5 2.5 0 0 0 4 4.5v15"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h6"/></svg>
+              </span>
+              <span class="sheetNav__meta">
+                <span class="sheetNav__title">Предыстория</span>
+                <span class="sheetNav__desc">откуда ты и зачем здесь</span>
+              </span>
+            </a>
+
+            <a class="sheetNav__link" data-step="traits" href="traits.html">
+              <span class="sheetNav__badge">3</span>
+              <span class="sheetNav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"/></svg>
+              </span>
+              <span class="sheetNav__meta">
+                <span class="sheetNav__title">Характер</span>
+                <span class="sheetNav__desc">сильные/слабые + границы</span>
+              </span>
+            </a>
+
+            <a class="sheetNav__link" data-step="connections" href="connections.html">
+              <span class="sheetNav__badge">4</span>
+              <span class="sheetNav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </span>
+              <span class="sheetNav__meta">
+                <span class="sheetNav__title">Связи</span>
+                <span class="sheetNav__desc">3 важных контакта</span>
+              </span>
+            </a>
+
+            <a class="sheetNav__link" data-step="goals" href="goals.html">
+              <span class="sheetNav__badge">5</span>
+              <span class="sheetNav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              </span>
+              <span class="sheetNav__meta">
+                <span class="sheetNav__title">Цели и секрет</span>
+                <span class="sheetNav__desc">ставки 2026 + крючок</span>
+              </span>
+            </a>
+
+            <a class="sheetNav__link" data-step="scenes" href="scenes.html">
+              <span class="sheetNav__badge">6</span>
+              <span class="sheetNav__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4V2"/><path d="M15 16v-2"/><path d="M8 9h2"/><path d="M14 9h2"/><path d="M4 22l4-4"/><path d="M20 22l-4-4"/><path d="M9 4h6"/><path d="M7 9a5 5 0 0 1 10 0c0 5-5 7-5 7s-5-2-5-7z"/></svg>
+              </span>
+              <span class="sheetNav__meta">
+                <span class="sheetNav__title">Сцены</span>
+                <span class="sheetNav__desc">генерация + отправка</span>
+              </span>
+            </a>
+          </nav>
+          <div class="sheetNav__foot">
+            <button class="btn btn--ghost" id="clearSheetBtn" type="button">Очистить анкету</button>
+            <div class="small">Хранение: LocalStorage (только в твоём браузере).</div>
+          </div>
+        </aside>
+
+        <div class="sheetMain">
+          <form class="panel reveal" id="sheetForm" data-step="scenes" novalidate>
+            <div class="panel__head">
+              <div>
+                <div class="panel__title">Сцены, отправка и генерация</div>
+                <div class="panel__sub">что ты хочешь играть • 2 сцены по анкете • сохранение в Google Sheets</div>
+              </div>
+              <span class="badge">submit</span>
+            </div>
+
+            <div class="sheetStatus note" id="saveStatus">Автосохранение включено.</div>
+
+            <label class="field" style="margin-top:14px">
+              <span class="field__label">Сцены, которые хочешь</span>
+              <textarea class="input textarea" placeholder="3 ситуации (переговоры, расследование, конфликт границы, семейная линия…). Можно через буллеты." data-field="wishes"></textarea>
+              <span class="field__hint">Эта часть влияет на подбор сцен. Можно просто: «хочу переговоры + расследование + семейную линию».</span>
+            </label>
+
+            <hr class="hr" />
+
+            <div class="sheetMini">
+              <div class="panel__title">Краткий итог анкеты</div>
+              <div class="panel__sub">проверка перед отправкой (редактируется в предыдущих шагах)</div>
+              <div class="review" id="reviewBlock"></div>
+            </div>
+
+            <hr class="hr" />
+
+            <div id="guide" class="sheetGuide">
+              <div class="panel__title">Google Sheets</div>
+              <div class="panel__sub">чтобы ответы автоматически попадали в таблицу</div>
+
+              <div class="note" style="margin-top:12px">
+                Обычно это настраивается <strong>один раз админом</strong> — пользователь ничего не вводит.
+                Если нужно поменять URL, открой эту страницу с параметром <strong>?setup=1</strong>.
+              </div>
+
+              <div class="grid2" style="margin-top:12px">
+                <label class="field">
+                  <span class="field__label">URL Web App (Apps Script)</span>
+                  <input class="input" type="url" id="endpointInput" placeholder="https://script.google.com/macros/s/....../exec" />
+                  <span class="field__hint">Показывается только в режиме настройки (<strong>?setup=1</strong>). В обычном режиме поле скрыто.</span>
+                </label>
+
+                <div class="note">
+                  <strong>Важно:</strong> при деплое Web App выбери доступ <em>Anyone</em> (любой пользователь). Иначе запросы с сайта не пройдут.
+                </div>
+              </div>
+
+              <details class="note" style="margin-top:12px">
+                <summary><strong>Пошаговая инструкция и код Apps Script</strong> (нажми, чтобы раскрыть)</summary>
+                <div style="margin-top:12px" class="small">
+                  В Apps Script создай файл <strong>Code.gs</strong>, вставь код ниже, затем <strong>Deploy → New deployment → Web app</strong>.
+                </div>
+                <pre class="code"><code>// 1) Вставь ID своей таблицы
+// 2) Деплой: Web app (Execute as: Me, Who has access: Anyone)
+const SPREADSHEET_ID = 'PASTE_YOUR_SPREADSHEET_ID_HERE';
+const SHEET_NAME = 'Submissions';
+
+function doPost(e) {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
+
+  const data = (e && e.parameter) ? e.parameter : {};
+  const headers = [
+    'created_at','name','alias','dob','role','set','tags',
+    'backstory','traits','limits','connections','goals','secret','wishes'
+  ];
+
+  if (sheet.getLastRow() === 0) sheet.appendRow(headers);
+
+  const row = headers.map((h) => (data[h] != null ? data[h] : ''));
+  sheet.appendRow(row);
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ ok: true }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+                </code></pre>
+              </details>
+            </div>
+
+            <div class="sheetActions">
+              <a class="btn btn--ghost" href="goals.html">← Назад</a>
+              <button class="btn btn--ghost" type="button" id="generateBtn">Сгенерировать 2 сцены</button>
+              <button class="btn btn--primary" type="button" id="submitBtn">Отправить →</button>
+            </div>
+
+            <div class="sheetStatus note" id="submitStatus" style="margin-top:12px" hidden></div>
+
+            <div id="generatedScenes" class="sceneGrid" style="margin-top:14px"></div>
+
+            <div id="scenePlaceholder" class="scenePlaceholder" style="margin-top:14px">
+              <div class="scenePlaceholder__title">Сцены появятся здесь</div>
+              <div class="small">Нажми «Сгенерировать 2 сцены» — они будут готовы для копирования и игры.</div>
+            </div>
+
+            <details class="libraryBox" id="libraryDetails" style="margin-top:14px">
+              <summary><strong>Библиотека 100+ сцен</strong> (раскрыть)</summary>
+              <div class="small" style="margin-top:10px">Это заготовки‑подсказки для сюжета: переговоры, расследования, семейные линии, границы, давление и т.д.</div>
+              <div id="sceneLibrary" class="sceneLibrary" style="margin-top:12px"></div>
+            </details>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap footer__inner">
+        <div>Ballas • Character Sheet</div>
+        <button class="btn btn--ghost" id="themeBtn2" type="button">Тема</button>
+      </div>
+    </footer>
+  </main>
+
+  <button class="btn btn--primary toTop" id="toTop" type="button" aria-label="Наверх">↑ Наверх</button>
+
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close="1" tabindex="-1"></div>
+    <div class="modal__panel" role="document">
+      <div class="modal__head">
+        <div>
+          <div class="modal__title" id="modalTitle">—</div>
+        </div>
+        <button class="btn btn--ghost" data-close="1" type="button">Закрыть</button>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+      <div class="modal__foot">
+        <span class="chip">RP</span>
+        <span class="chip">Sheet</span>
+        <span class="chip">2026</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+  <script src="./config.js"></script>
+  <script src="./sheet_config.js"></script>
+  <script src="./sheet_form.js"></script>
+</body>
+</html>

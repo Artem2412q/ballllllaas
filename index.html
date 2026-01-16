@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="ru" data-theme="dark" data-root=".">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Ballas — фанатский лор‑хаб по мотивам GTA V: обзор, район, персонажи, кейсы, хроника и RP‑досье." />
+  <title>Ballas — Lore Hub</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Перейти к содержимому</a>
+
+  <div class="bg" aria-hidden="true">
+    <div class="bg__blob bg__blob--1"></div>
+    <div class="bg__blob bg__blob--2"></div>
+    <div class="bg__blob bg__blob--3"></div>
+    <div class="bg__mesh"></div>
+    <div class="bg__pattern"></div>
+    <div class="bg__vignette"></div>
+  </div>
+
+  <header class="topbar" id="topbar">
+    <div class="progress" aria-hidden="true"><div class="progress__bar" id="scrollProgress"></div></div>
+
+    <div class="wrap topbar__inner">
+      <a class="brand" href="./index.html" aria-label="Ballas — на главную">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__text">
+          <span class="brand__title">Ballas</span>
+          <span class="brand__sub">South LS • Davis • lore hub</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Навигация">
+        <a class="nav__link" data-spy="about" href="#about">Обзор</a>
+        <a class="nav__link" data-spy="hood" href="#hood">Район</a>
+        <a class="nav__link" data-spy="crew" href="#crew">Crew</a>
+        <a class="nav__link" data-spy="characters" href="#characters">Персонажи</a>
+        <a class="nav__link" data-spy="cases" href="#cases">Кейсы</a>
+        <a class="nav__link" data-spy="conflict" href="#conflict">Конфликт</a>
+        <a class="nav__link" data-spy="timeline" href="#timeline">Хроника</a>
+        <a class="nav__link" data-spy="glossary" href="#glossary">Глоссарий</a>
+        <a class="nav__link" data-spy="hooks" href="#hooks">Крючки</a>
+      </nav>
+
+      <div class="actions">
+        <button class="btn btn--ghost" id="themeBtn" type="button">🌙 Dark</button>
+        <button class="btn btn--ghost" id="searchBtn" type="button">Поиск</button>
+        <a class="btn btn--primary" href="./rp.html">RP‑досье</a>
+
+        <button class="iconBtn" id="menuBtn" type="button" aria-label="Меню" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="iconBtn__bar"></span>
+          <span class="iconBtn__bar"></span>
+          <span class="iconBtn__bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobileMenu" id="mobileMenu" hidden>
+      <div class="wrap mobileMenu__inner">
+        <a class="mobileMenu__link" href="#about">Обзор</a>
+        <a class="mobileMenu__link" href="#hood">Район</a>
+        <a class="mobileMenu__link" href="#crew">Crew</a>
+        <a class="mobileMenu__link" href="#characters">Персонажи</a>
+        <a class="mobileMenu__link" href="#cases">Кейсы</a>
+        <a class="mobileMenu__link" href="#conflict">Конфликт</a>
+        <a class="mobileMenu__link" href="#timeline">Хроника</a>
+        <a class="mobileMenu__link" href="#glossary">Глоссарий</a>
+        <a class="mobileMenu__link" href="#hooks">Крючки</a>
+        <div class="mobileMenu__hint">Меню закрывается по клику на пункт или по Esc.</div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap">
+      <div class="hero__grid">
+        <div>
+          <div class="chips reveal">
+            <span class="chip">GTA V • Los Santos</span>
+            <span class="chip">RP‑хаб</span>
+          </div>
+
+          <h1 class="h1 reveal">
+            Ballas — фиолетовый код
+            <span class="h1__muted">хаб лора, кейсов и персонажей</span>
+          </h1>
+
+          <p class="lead reveal">
+            Здесь Ballas оформлены как «досье района»: обзор (канон + фан‑добавления), паспорт Davis, база персонажей,
+            журнал кейсов и хроника. Тон спокойный — порядок важнее шума.
+          </p>
+
+          <div class="hero__cta reveal">
+            <a class="btn btn--primary" href="./cases.html">Открыть кейсы</a>
+            <a class="btn btn--ghost" href="./characters.html">База персонажей</a>
+          </div>
+
+          <div class="stats reveal">
+            <div class="stat">
+              <div class="stat__label">Код</div>
+              <div class="stat__value">Purple</div>
+            </div>
+            <div class="stat">
+              <div class="stat__label">Среда</div>
+              <div class="stat__value">South LS / Davis</div>
+            </div>
+            <div class="stat">
+              <div class="stat__label">Формат</div>
+              <div class="stat__value">Lore + RP</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Навигация по хабу</div>
+              <div class="panel__sub">быстрое погружение</div>
+            </div>
+            <span class="badge">static</span>
+          </div>
+          <div class="kv">
+            <div>
+              <div class="kv__k">Кейсы</div>
+              <div class="kv__v">/case/001…</div>
+            </div>
+            <div>
+              <div class="kv__k">Персонажи</div>
+              <div class="kv__v">карточки + фильтры</div>
+            </div>
+            <div>
+              <div class="kv__k">RP‑досье</div>
+              <div class="kv__v">сюжет 2026</div>
+            </div>
+          </div>
+
+          <p class="p">Нужно найти термин, персонажа или кейс — используй поиск в шапке.</p>
+          <div class="legend">
+            <span class="chip">Heat‑индикатор</span>
+            <span class="chip">Паспорт района</span>
+            <span class="chip">Крючки лора</span>
+          </div>
+
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn btn--ghost" href="#glossary">Глоссарий</a>
+            <a class="btn btn--ghost" href="#timeline">Хроника</a>
+            <a class="btn btn--primary" href="./rp.html">Открыть RP‑досье</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section wrap">
+      <div class="reveal" style="text-align:center; max-width: 860px; margin:0 auto">
+        <div class="eyebrow">Обзор</div>
+        <h2 class="h2">Кто такие Ballas в GTA V</h2>
+        <p class="p">
+          В мире GTA V Ballas — уличная группировка с яркой визуальной идентичностью (фиолетовый код) и устойчивой
+          динамикой соперничества с Families. Для RP‑формата здесь упор на структуру, среду и конфликт — без лишних слов.
+        </p>
+      </div>
+
+      <div class="grid2" style="margin-top:22px">
+        <div class="panel reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Канон</div>
+              <div class="panel__sub">то, что легко ложится на GTA‑контекст</div>
+            </div>
+            <span class="badge">canon</span>
+          </div>
+          <p class="p">
+            Фиолетовая эстетика, уличная репутация и присутствие в South LS. Сила Ballas — в узнаваемости и в том, что
+            район помнит их как «код», а не как отдельные лица.
+          </p>
+          <div class="legend">
+            <span class="chip">цвет</span>
+            <span class="chip">репутация</span>
+            <span class="chip">территория</span>
+          </div>
+        </div>
+
+        <div class="panel reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">RP‑добавления</div>
+              <div class="panel__sub">расширение под сервер/сеттинг (мягко и логично)</div>
+            </div>
+            <span class="badge">rp</span>
+          </div>
+          <p class="p">
+            Вместо хаотичного «шума» — спокойная структура: роли, внутренний кодекс, каналы договорённостей.
+            Конфликт подаётся как динамика границ и доверия: проверка района, утечки, провокации, ответ без эскалации.
+          </p>
+          <div class="legend">
+            <span class="chip">структура</span>
+            <span class="chip">дисциплина</span>
+            <span class="chip">контроль heat</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal">
+          <div class="cardTop">
+            <div>
+              <h3 class="h3">Идентичность</h3>
+              <div class="small">что считывается за секунду</div>
+            </div>
+            <span class="badge">ID</span>
+          </div>
+          <p class="p">
+            Фиолетовый код — это не только цвет. Это манера говорить, уважение к своим и правило: «порядок важнее показухи».
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <div class="cardTop">
+            <div>
+              <h3 class="h3">Среда</h3>
+              <div class="small">как живёт район</div>
+            </div>
+            <span class="badge">hood</span>
+          </div>
+          <p class="p">
+            Davis — это люди, привычки и локальные правила. Здесь важны не громкие лозунги, а то, кто держит слово и кто
+            умеет удержать улицу от перегрева.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <div class="cardTop">
+            <div>
+              <h3 class="h3">Конфликт</h3>
+              <div class="small">не война, а трение</div>
+            </div>
+            <span class="badge">rivalry</span>
+          </div>
+          <p class="p">
+            Проверки границ, провокации, давление через слухи. Ballas держат спокойный тон — но если другая сторона
+            приходит с агрессией, ответ следует быстро и по делу.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="hood" class="section wrap">
+      <div class="reveal" style="text-align:center; max-width: 860px; margin:0 auto">
+        <div class="eyebrow">Hood</div>
+        <h2 class="h2">Паспорт района Davis</h2>
+        <p class="p">Параметры района: границы, настроение, «локальные искры» и Heat.</p>
+      </div>
+
+      <div class="grid2" style="margin-top:22px">
+        <div class="panel reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Данные паспорта</div>
+              <div class="panel__sub">коротко и по делу</div>
+            </div>
+            <span class="badge">passport</span>
+          </div>
+
+          <div class="kv">
+            <div>
+              <div class="kv__k">Ядро</div>
+              <div class="kv__v">Davis • Mainline</div>
+            </div>
+            <div>
+              <div class="kv__k">Границы</div>
+              <div class="kv__v">стыки кварталов</div>
+            </div>
+            <div>
+              <div class="kv__k">Ритм</div>
+              <div class="kv__v">спокойно / наблюдательно</div>
+            </div>
+          </div>
+
+          <div class="heat" id="heatMeter" data-heat="3">
+            <div class="heat__top">
+              <div>
+                <div class="heat__label">Heat‑индикатор</div>
+                <div class="small">локальные искры</div>
+              </div>
+              <span class="badge">visual</span>
+            </div>
+            <p class="heat__desc">
+              Heat — это не «уровень драки», а давление вокруг района: слухи, чужие взгляды, проверка границ.
+              Искры — мелочи, из которых собирается буря.
+            </p>
+            <div class="legend">
+              <span class="chip">чужие теги поверх фиолетового</span>
+              <span class="chip">сорванная встреча</span>
+              <span class="chip">утечка времени/места</span>
+              <span class="chip">«незнакомые машины» у блоков</span>
+            </div>
+          </div>
+
+          <div class="note" style="margin-top:14px">
+            Быстрый ориентир: держите ритм (спокойно/наблюдательно) и играйте через давление, а не постоянную войну.
+          </div>
+        </div>
+
+        <div class="panel reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Границы, правила и крючки</div>
+              <div class="panel__sub">чтобы район был удобен для игры</div>
+            </div>
+            <span class="badge">hooks</span>
+          </div>
+
+          <div class="bullets" style="margin-top:12px">
+            <div class="bullets__title">Что важно помнить</div>
+            <ul>
+              <li><strong>Граница</strong> — это не линия на карте, а привычки и маршруты. На стыках всегда больше слухов.</li>
+              <li><strong>Heat</strong> растёт от мелочей: чужие машины, сорванные встречи, «не тот» тег на стене.</li>
+              <li><strong>Ответ</strong> начинается с присутствия: разговор, предупреждение, затем действия по ситуации.</li>
+            </ul>
+          </div>
+
+          <div class="bullets" style="margin-top:14px">
+            <div class="bullets__title">Готовые поводы для сцен</div>
+            <ul>
+              <li>Кто-то продаёт информацию о времени/месте встречи — нужно найти источник.</li>
+              <li>Соседний квартал «съел» кусок маршрута: проверка границы без лишнего шума.</li>
+              <li>Пропал человек, который должен был закрыть вопрос — кто и зачем его "снял"?</li>
+              <li>Новый персонаж хочет войти: ему дают маленькую задачу на доверие.</li>
+            </ul>
+          </div>
+    </section>
+
+    <section id="crew" class="section wrap">
+      <div class="reveal" style="text-align:center; max-width: 860px; margin:0 auto">
+        <div class="eyebrow">Crew</div>
+        <h2 class="h2">Структура и роли</h2>
+        <p class="p">Иерархия оформлена как RP‑сетка: кто чем занят, кто кому докладывает, где начинается ответственность.</p>
+      </div>
+
+      <div class="grid2" style="margin-top:22px">
+        <div class="panel reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Иерархия (снизу вверх)</div>
+              <div class="panel__sub">внутренний порядок</div>
+            </div>
+            <span class="badge">rank</span>
+          </div>
+
+          <div class="timeline">
+            <div class="event">
+              <div class="event__top"><div class="event__date">1) Потенциал</div><span class="badge">Peewee / Shorty</span></div>
+              <div class="event__title">Молодые, кто хочет войти</div>
+              <div class="event__text">Наблюдают, помогают, доказывают дисциплину. В RP — «на тебя смотрят».</div>
+            </div>
+
+            <div class="event">
+              <div class="event__top"><div class="event__date">2) Put‑on</div><span class="badge">ввод</span></div>
+              <div class="event__title">Неофит, который прошёл проверку</div>
+              <div class="event__text">После ввода — полноправный младший участник. Главное — лояльность и спокойствие.</div>
+            </div>
+
+            <div class="event">
+              <div class="event__top"><div class="event__date">3) Soldier</div><span class="badge">улица</span></div>
+              <div class="event__title">Уличный солдат</div>
+              <div class="event__text">Рабочая сила: присутствие, безопасность своих, выполнение поручений без шума.</div>
+            </div>
+
+            <div class="event">
+              <div class="event__top"><div class="event__date">4) Street Head</div><span class="badge">участок</span></div>
+              <div class="event__title">Главный по улице / сектору</div>
+              <div class="event__text">Собирает людей, держит порядок на участке, передаёт решения вверх.</div>
+            </div>
+
+            <div class="event">
+              <div class="event__top"><div class="event__date">5) O.G.</div><span class="badge">ветеран</span></div>
+              <div class="event__title">Original Gangster</div>
+              <div class="event__text">Решает споры и задаёт тон. Бывает «in the Pen» и «on the Streets» — авторитет в разных средах.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Функции внутри сета</div>
+              <div class="panel__sub">распределение задач</div>
+            </div>
+            <span class="badge">roles</span>
+          </div>
+
+          <p class="p">
+            Смысл функций — держать район <strong>управляемым</strong>: меньше хаоса, больше ясных линий ответственности.
+            Ниже — удобная шпаргалка для RP.
+          </p>
+
+          <div class="roleGrid" style="margin-top:14px">
+            <div class="roleCard">
+              <div class="roleCard__top"><span class="chip">Shot‑caller</span><span class="small">решение</span></div>
+              <div class="roleCard__title">Кто принимает финальное решение</div>
+              <div class="small">Сводит инфу, гасит внутренние конфликты, даёт «да/нет» по ответам на давление.</div>
+            </div>
+            <div class="roleCard">
+              <div class="roleCard__top"><span class="chip">Consigliere</span><span class="small">совет</span></div>
+              <div class="roleCard__title">Тот, кто держит рамки</div>
+              <div class="small">Предупреждает ошибки, предлагает мягкие варианты, следит за репутацией и последствиями.</div>
+            </div>
+            <div class="roleCard">
+              <div class="roleCard__top"><span class="chip">Logistics</span><span class="small">план</span></div>
+              <div class="roleCard__title">Маршруты, точки, встречи</div>
+              <div class="small">Согласует время/место, проверяет риски, обеспечивает «чистые» переходы и прикрытие.</div>
+            </div>
+            <div class="roleCard">
+              <div class="roleCard__top"><span class="chip">Intel</span><span class="small">сведения</span></div>
+              <div class="roleCard__title">Слухи → факты</div>
+              <div class="small">Собирает сигналы, проверяет источник, отделяет шум от угрозы. Любит тихую работу.</div>
+            </div>
+            <div class="roleCard">
+              <div class="roleCard__top"><span class="chip">Community</span><span class="small">маска</span></div>
+              <div class="roleCard__title">Лицо района</div>
+              <div class="small">Решает бытовые трения, держит отношения с «своими», закрывает мелкие пожары.</div>
+            </div>
+          </div>
+
+          <div class="bullets" style="margin-top:14px">
+            <div class="bullets__title">RP‑подсказки</div>
+            <ul>
+              <li>Если Heat растёт — первым идёт <strong>Intel</strong>, потом <strong>Shot‑caller</strong> решает, что делать.</li>
+              <li>Когда нужна встреча — <strong>Logistics</strong> выбирает точку и «чистит» маршрут.</li>
+              <li>Когда спор внутри — <strong>Consigliere</strong> помогает не дать сету расколоться.</li>
+            </ul>
+          </div>
+
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn btn--primary" href="./characters.html">Открыть базу персонажей</a>
+            <a class="btn btn--ghost" href="./sheet_profile.html">Анкета персонажа</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="characters" class="section wrap">
+      <div class="reveal" style="text-align:center; max-width: 860px; margin:0 auto">
+        <div class="eyebrow">Database</div>
+        <h2 class="h2">Персонажи</h2>
+        <p class="p">Имена — американские/латинские, возраст 18+. Здесь превью; полная база — на отдельной странице.</p>
+      </div>
+
+      <div class="grid3" id="charactersPreviewGrid" style="margin-top:22px"></div>
+
+      <div class="reveal" style="margin-top:14px; text-align:center">
+        <a class="btn btn--primary" href="./characters.html">Перейти в базу персонажей</a>
+      </div>
+    </section>
+
+    <section id="cases" class="section wrap">
+      <div class="reveal" style="text-align:center; max-width: 860px; margin:0 auto">
+        <div class="eyebrow">Cases</div>
+        <h2 class="h2">Мини‑страницы кейсов</h2>
+        <p class="p">/case/001 — /case/003. Каждый кейс — сцена, последствия и «локальные искры» для продолжения.</p>
+      </div>
+
+      <div class="grid3" id="casesPreviewGrid" style="margin-top:22px"></div>
+
+      <div class="reveal" style="margin-top:14px; text-align:center">
+        <a class="btn btn--primary" href="./cases.html">Открыть все кейсы</a>
+      </div>
+    </section>
+
+    <section id="conflict" class="section wrap">
+      <div class="reveal" style="text-align:center; max-width: 860px; margin:0 auto">
+        <div class="eyebrow">Rivalry</div>
+        <h2 class="h2">Конфликтная динамика (RP)</h2>
+        <p class="p">Вместо «вечной войны» — управляемое трение: границы, репутация, давление и ответы по ситуации.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal">
+          <div class="cardTop"><div><h3 class="h3">Фаза 1 — Шум</h3><div class="small">слухи и маркеры</div></div><span class="badge">low</span></div>
+          <p class="p">Сначала всегда слышно не конфликт, а разговоры: кто кого «видел», кто что «сказал», кто поставил метку.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="cardTop"><div><h3 class="h3">Фаза 2 — Проверка</h3><div class="small">границы и провокации</div></div><span class="badge">mid</span></div>
+          <p class="p">Другая сторона пробует границу: демонстративно, но не обязательно громко. Ballas отвечают спокойным присутствием.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="cardTop"><div><h3 class="h3">Фаза 3 — Ответ</h3><div class="small">когда иначе нельзя</div></div><span class="badge">high</span></div>
+          <p class="p">Если приходит агрессия — ответ быстрый и точный. Смысл не в разрушении, а в защите своих интересов и границ.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="timeline" class="section wrap">
+      <div class="reveal" style="text-align:center; max-width: 860px; margin:0 auto">
+        <div class="eyebrow">Timeline</div>
+        <h2 class="h2">Хроника и контекст</h2>
+        <p class="p">Короткие узлы, которые легко превращать в сцены. 2026 — старт основного сюжета.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="event reveal">
+          <div class="event__top"><div class="event__date">2020</div><span class="badge">Los Santos</span></div>
+          <div class="event__title">Вырезка из криминальных новостей</div>
+          <div class="event__text">
+            Ночной Davis проснулся от сирен и запаха гари: на стоянке у южной границы вспыхнули две машины, а очевидцы говорили о короткой,
+            резкой очереди где-то в переулке. Полиция перекрыла несколько кварталов до утра; по рации прошла сухая формулировка про «нескольких раненых»
+            и «пропавшего свидетеля». Район запомнил не цифры, а ощущение: после этой ночи люди стали говорить тише.
+          </div>
+        </div>
+
+        <div class="event reveal">
+          <div class="event__top"><div class="event__date">2021–2025</div><span class="badge">slow burn</span></div>
+          <div class="event__title">Наработка структуры</div>
+          <div class="event__text">
+            Сеты укладываются в порядок: роли фиксируются, контакты фильтруются, лишний шум уходит. Главная ставка — не на агрессию,
+            а на дисциплину и репутацию.
+          </div>
+        </div>
+
+        <div class="event reveal">
+          <div class="event__top"><div class="event__date">2026</div><span class="badge">start</span></div>
+          <div class="event__title">Начало сюжета</div>
+          <div class="event__text">
+            В 2026 Ballas действуют спокойно: наблюдают, собирают факты, держат границы. Если другая банда проявляет агрессию —
+            ответ идёт быстро и по делу, чтобы не потерять лицо и интересы.
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top:16px; text-align:center">
+        <a class="btn btn--primary" href="./rp.html#story">Сюжет 2026 в RP‑досье</a>
+      </div>
+    </section>
+
+    <section id="glossary" class="section wrap">
+      <div class="reveal" style="text-align:center; max-width: 860px; margin:0 auto">
+        <div class="eyebrow">Glossary</div>
+        <h2 class="h2">Глоссарий (с русской транскрипцией)</h2>
+        <p class="p">Термины и произношение — чтобы одинаково звучать в RP.</p>
+      </div>
+
+      <div class="grid2" id="glossaryList" style="margin-top:22px"></div>
+    </section>
+
+    <section id="hooks" class="section wrap">
+      <div class="reveal" style="text-align:center; max-width: 860px; margin:0 auto">
+        <div class="eyebrow">Hooks</div>
+        <h2 class="h2">Крючки для лора</h2>
+        <p class="p">Готовые зацепки для сцен: мягкие входы, напряжение и последствия.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal">
+          <div class="cardTop"><div><h3 class="h3">Утечка</h3><div class="small">кто-то говорит лишнее</div></div><span class="badge">intel</span></div>
+          <p class="p">Внутри сета появляется источник, который «сливает» время встреч. Доказательств нет — только совпадения.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="cardTop"><div><h3 class="h3">Граница</h3><div class="small">проверка терпения</div></div><span class="badge">turf</span></div>
+          <p class="p">На стыке кварталов чужие ставят метки. Если ответить грубо — поднимется Heat. Если промолчать — потеряешь лицо.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="cardTop"><div><h3 class="h3">Сделка‑зеркало</h3><div class="small">улыбки без доверия</div></div><span class="badge">deal</span></div>
+          <p class="p">Две стороны готовы к договору, но каждая ждёт подвох. Нужен посредник, который удержит разговор от срыва.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap footer__inner">
+        <div>Ballas • Lore Hub</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <button class="btn btn--ghost" id="themeBtn2" type="button">Тема</button>
+          <a class="btn btn--ghost" href="./rp.html">RP‑досье</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <button class="btn btn--primary toTop" id="toTop" type="button" aria-label="Наверх">↑ Наверх</button>
+
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close="1" tabindex="-1"></div>
+    <div class="modal__panel" role="document">
+      <div class="modal__head">
+        <div>
+          <div class="modal__title" id="modalTitle">—</div>
+        </div>
+        <button class="btn btn--ghost" data-close="1" type="button">Закрыть</button>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+      <div class="modal__foot">
+        <span class="chip">Ballas</span>
+        <span class="chip">Lore</span>
+        <span class="chip">RP</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
