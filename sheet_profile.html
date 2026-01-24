@@ -30,32 +30,28 @@
   </div>
 
   <header class="topbar" id="topbar">
-    <div class="progress" aria-hidden="true"><div class="progress__bar" id="scrollProgress"></div></div>
-
     <div class="wrap topbar__inner">
       <a class="brand" href="./index.html" aria-label="Ballas — на главную">
-        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__mark" aria-hidden="true">B</span>
         <span class="brand__text">
           <span class="brand__title">Ballas</span>
-          <span class="brand__sub">RP dossier • анкета</span>
+          <span class="brand__sub">Ритуал создания • шаг 1/6</span>
         </span>
       </a>
 
       <nav class="nav" aria-label="Навигация">
-        <a class="nav__link" href="./index.html">RP‑досье</a>
-        <a class="nav__link" href="./cases.html">Кейсы</a>
+        <a class="nav__link" href="./index.html">Главная</a>
         <a class="nav__link" href="./characters.html">Персонажи</a>
-              <a class="nav__link" href="./businesses.html">Бизнесы</a>
+        <a class="nav__link" href="./cases.html">Кейсы</a>
+        <a class="nav__link" href="./businesses.html">Бизнесы</a>
+        <a class="nav__link" href="./rp.html">RP‑досье</a>
       </nav>
 
       <div class="actions">
-        <button class="btn btn--ghost" id="themeBtn" type="button">🌙 Dark</button>
-        <button class="btn btn--ghost" id="searchBtn" type="button">Поиск</button>
-
+        <a class="btn btn--primary btn--small" href="./sheet_profile.html">Создать персонажа</a>
+        <button class="iconBtn" id="themeBtn" type="button" aria-label="Переключить тему"></button>
         <button class="iconBtn" id="menuBtn" type="button" aria-label="Меню" aria-expanded="false" aria-controls="mobileMenu">
-          <span class="iconBtn__bar"></span>
-          <span class="iconBtn__bar"></span>
-          <span class="iconBtn__bar"></span>
+          <span class="iconBtn__bar"></span><span class="iconBtn__bar"></span><span class="iconBtn__bar"></span>
         </button>
       </div>
     </div>
@@ -63,11 +59,12 @@
     <div class="mobileMenu" id="mobileMenu" hidden>
       <div class="wrap mobileMenu__inner">
         <a class="mobileMenu__link" href="./index.html">Главная</a>
-        <a class="mobileMenu__link" href="./index.html">RP‑досье</a>
-        <a class="mobileMenu__link" href="./cases.html">Кейсы</a>
         <a class="mobileMenu__link" href="./characters.html">Персонажи</a>
+        <a class="mobileMenu__link" href="./cases.html">Кейсы</a>
         <a class="mobileMenu__link" href="./businesses.html">Бизнесы</a>
-        <div class="mobileMenu__hint">Меню закрывается по клику на пункт или по Esc.</div>
+        <a class="mobileMenu__link" href="./rp.html">RP‑досье</a>
+        <a class="mobileMenu__link mobileMenu__link--cta" href="./sheet_profile.html">Создать персонажа</a>
+        <div class="mobileMenu__hint">Закрыть: Esc или клик по пункту.</div>
       </div>
     </div>
   </header>

@@ -31,17 +31,28 @@
     updateThemeBtn();
   };
 
-  const updateThemeBtn = () => {
-    const cur = html.getAttribute('data-theme') || 'dark';
-    const text = cur === 'dark' ? '🌙 Тёмная' : '☀️ Светлая';
-    const label = cur === 'dark' ? 'Тема: тёмная (нажмите для светлой)' : 'Тема: светлая (нажмите для тёмной)';
+  const themeIcon = (theme) => {
+    // Minimal inline icons, no external deps
+    if (theme === 'light') {
+      return `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <path fill="currentColor" d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM2 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm18 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1ZM4.22 4.22a1 1 0 0 1 1.42 0l.7.7A1 1 0 1 1 4.93 6.34l-.7-.7a1 1 0 0 1 0-1.42Zm12.73 12.73a1 1 0 0 1 1.42 0l.7.7a1 1 0 1 1-1.41 1.41l-.71-.7a1 1 0 0 1 0-1.41ZM19.78 4.22a1 1 0 0 1 0 1.42l-.7.7a1 1 0 1 1-1.42-1.41l.7-.71a1 1 0 0 1 1.42 0ZM7.05 16.95a1 1 0 0 1 0 1.41l-.7.71a1 1 0 1 1-1.41-1.41l.7-.71a1 1 0 0 1 1.41 0Z"/>
+      </svg>`;
+    }
+    return `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+      <path fill="currentColor" d="M21 14.5A7.5 7.5 0 0 1 9.5 3a1 1 0 0 1 1.16 1.2A5.5 5.5 0 0 0 19.8 13.34 1 1 0 0 1 21 14.5Z"/>
+    </svg>`;
+  };
 
+  const updateThemeBtn = () => {
+    const t = html.getAttribute('data-theme') || 'dark';
+    const isLight = t === 'light';
+    const label = isLight ? 'Включить тёмную тему' : 'Включить светлую тему';
     ['themeBtn', 'themeBtn2'].forEach((id) => {
       const btn = document.getElementById(id);
       if (!btn) return;
-      btn.textContent = text;
+      btn.innerHTML = themeIcon(t);
       btn.setAttribute('aria-label', label);
-      btn.title = 'Переключить тему';
+      btn.title = 'Тема';
     });
   };
 
@@ -54,18 +65,28 @@
   const switchThemeAnimated = (e) => {
     const cur = html.getAttribute('data-theme') || 'dark';
     const next = cur === 'dark' ? 'light' : 'dark';
-    if (prefersReduced) {
-      setTheme(next);
-      return;
-    }
 
-    // Coordinates for the wipe origin (mouse/tap). Fallback to center of button.
     const btn = e?.currentTarget;
     const r = btn?.getBoundingClientRect?.();
     const x = (e?.clientX ?? (r ? r.left + r.width / 2 : innerWidth / 2));
     const y = (e?.clientY ?? (r ? r.top + r.height / 2 : 64));
 
-    // Snapshot current background so overlay stays in the old theme color.
+    // Store origin for CSS (View Transitions)
+    html.style.setProperty('--vt-x', `${x}px`);
+    html.style.setProperty('--vt-y', `${y}px`);
+
+    if (prefersReduced) {
+      setTheme(next);
+      return;
+    }
+
+    // Best option: native View Transitions (clean + no overlay hacks)
+    if (document.startViewTransition) {
+      document.startViewTransition(() => setTheme(next));
+      return;
+    }
+
+    // Fallback: overlay wipe
     const oldBg = getComputedStyle(document.body).backgroundColor || 'rgb(0,0,0)';
     const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)) + 24;
 
@@ -77,7 +98,6 @@
     overlay.style.clipPath = `circle(${radius}px at ${x}px ${y}px)`;
     document.body.appendChild(overlay);
 
-    // Switch theme under the overlay, then reveal it by shrinking the circle.
     setTheme(next);
 
     const anim = overlay.animate(
@@ -85,7 +105,7 @@
         { clipPath: `circle(${radius}px at ${x}px ${y}px)` },
         { clipPath: `circle(0px at ${x}px ${y}px)` },
       ],
-      { duration: 520, easing: 'cubic-bezier(.21,.61,.35,1)' }
+      { duration: 520, easing: 'cubic-bezier(.2,.8,.2,1)' }
     );
     anim.onfinish = () => overlay.remove();
   };
