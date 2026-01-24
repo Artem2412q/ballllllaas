@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="ru" data-theme="dark" data-root="..">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Ballas — Захват бизнесов: цели влияния, правила, условия сотрудничества и управление активами." />
+  <title>Ballas — Захват бизнесов</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Перейти к содержимому</a>
+
+  <div class="pageLoader" id="pageLoader" aria-hidden="true">
+    <div class="pageLoader__inner">
+      <div class="pageLoader__mark" aria-hidden="true"></div>
+      <div class="pageLoader__title">Ballas</div>
+      <div class="pageLoader__sub">Lore Hub • RP</div>
+      <div class="pageLoader__bar" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+
+<div class="bg" aria-hidden="true">
+    <div class="bg__blob bg__blob--1"></div>
+    <div class="bg__blob bg__blob--2"></div>
+    <div class="bg__blob bg__blob--3"></div>
+    <div class="bg__mesh"></div>
+    <div class="bg__pattern"></div>
+    <div class="bg__vignette"></div>
+  </div>
+
+  
+
+  <header class="topbar" id="topbar">
+    <div class="progress" aria-hidden="true"><div class="progress__bar" id="scrollProgress"></div></div>
+
+    <div class="wrap topbar__inner">
+      <a class="brand" href="./index.html" aria-label="Ballas — на главную">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__text">
+          <span class="brand__title">Ballas</span>
+          <span class="brand__sub">business capture • playbook</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Навигация">
+        <a class="nav__link" href="./index.html#about">Обзор</a>
+        <a class="nav__link" href="./characters.html">Персонажи</a>
+        <a class="nav__link" href="./cases.html">Кейсы</a>
+        <a class="nav__link is-active" href="./businesses.html">Бизнесы</a>
+        <a class="nav__link" href="./rp.html">RP‑досье</a>
+      </nav>
+
+      <div class="actions">
+        <button class="btn btn--ghost" id="themeBtn" type="button">🌙 Тёмная</button>
+        <button class="btn btn--ghost" id="searchBtn" type="button">Поиск</button>
+
+        <button class="iconBtn" id="menuBtn" type="button" aria-label="Меню" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="iconBtn__bar"></span>
+          <span class="iconBtn__bar"></span>
+          <span class="iconBtn__bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobileMenu" id="mobileMenu" hidden>
+      <div class="wrap mobileMenu__inner">
+        <a class="mobileMenu__link" href="./index.html#about">Обзор</a>
+        <a class="mobileMenu__link" href="./characters.html">Персонажи</a>
+        <a class="mobileMenu__link" href="./cases.html">Кейсы</a>
+        <a class="mobileMenu__link" href="./businesses.html">Бизнесы</a>
+        <a class="mobileMenu__link" href="./rp.html">RP‑досье</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap">
+      <div class="hero__grid">
+        <div>
+          <div class="chips reveal">
+            <span class="chip">RP‑раздел</span>
+            <span class="chip">экономика</span>
+            <span class="chip">контроль</span>
+          </div>
+
+          <h1 class="h1 reveal">
+            Захват бизнесов
+            <span class="h1__muted">цели • правила • выгоды сотрудничества</span>
+          </h1>
+
+          <p class="lead reveal">
+            Формат здесь простой: <strong>понятные договорённости</strong>, <strong>минимум шума</strong>,
+            <strong>максимум стабильности</strong>. Этот раздел нужен, чтобы за 5–10 секунд было ясно:
+            что это за механика и как в неё играть.
+          </p>
+
+          <div class="hero__cta reveal">
+            <a class="btn btn--primary" href="#targets">Посмотреть цели</a>
+            <a class="btn btn--ghost" href="#rules">Правила</a>
+          </div>
+
+          <div class="stats reveal">
+            <div class="stat">
+              <div class="stat__label">Фокус</div>
+              <div class="stat__value">Vanilla • Burger Shot</div>
+            </div>
+            <div class="stat">
+              <div class="stat__label">Смысл</div>
+              <div class="stat__value">порядок > шум</div>
+            </div>
+            <div class="stat">
+              <div class="stat__label">Роль</div>
+              <div class="stat__value">влияние • база</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Сигнал раздела</div>
+              <div class="panel__sub">«Контроль» — это сервис и структура, а не хаос.</div>
+            </div>
+            <span class="badge">playbook</span>
+          </div>
+
+          <div class="kv">
+            <div>
+              <div class="kv__k">Цели</div>
+              <div class="kv__v">2 бизнеса • 2 режима</div>
+            </div>
+            <div>
+              <div class="kv__k">Правила</div>
+              <div class="kv__v">договор • отчёт • лимиты</div>
+            </div>
+            <div>
+              <div class="kv__k">Выгоды</div>
+              <div class="kv__v">win‑win для обеих сторон</div>
+            </div>
+          </div>
+
+          <p class="p">Хочешь «живую» механику — добавим прогресс захвата (0–100%), инциденты и weekly‑события.</p>
+
+          <div class="legend">
+            <span class="chip">переговоры</span>
+            <span class="chip">события</span>
+            <span class="chip">кейсы</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="targets">
+      <div class="section__head reveal">
+        <h2 class="h2">Цели выполнения</h2>
+        <p class="muted">Два актива: ночной и дневной. Вместе дают устойчивую основу.</p>
+      </div>
+
+      <div class="grid2">
+        <article class="card reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Vanilla Unicorn</div>
+              <div class="panel__sub">Стриптиз‑бар • ночной поток • высокая оборотность</div>
+            </div>
+            <span class="badge">Vanila</span>
+          </div>
+
+          <ul>
+            <li><strong>Ценность:</strong> закрытые встречи, неформальные договорённости, ночная экономика.</li>
+            <li><strong>Риски:</strong> конфликтные гости, проверки, конкуренты.</li>
+            <li><strong>Контроль:</strong> стабилизировать кассу, снизить шум, обеспечить спокойную работу.</li>
+          </ul>
+
+          <div class="legend" style="margin-top:12px">
+            <span class="chip">приоритет влияния</span>
+            <span class="chip">точка присутствия</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Burger Shot</div>
+              <div class="panel__sub">Ресторан бургеров • массовый трафик • дневная стабильность</div>
+            </div>
+            <span class="badge">Burget Shot</span>
+          </div>
+
+          <ul>
+            <li><strong>Ценность:</strong> легальный трафик, понятная операционка, стабильные кассовые циклы.</li>
+            <li><strong>Риски:</strong> дисциплина персонала, логистика, качество.</li>
+            <li><strong>Контроль:</strong> стандарты, отчётность, прогнозируемая прибыль без резких скачков.</li>
+          </ul>
+
+          <div class="legend" style="margin-top:12px">
+            <span class="chip">экономический актив</span>
+            <span class="chip">массовый трафик</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="rules">
+      <div class="section__head reveal">
+        <h2 class="h2">Условия и правила</h2>
+        <p class="muted">Текст написан для RP‑контекста: про структуру, договор и устойчивость.</p>
+      </div>
+
+      <div class="grid2">
+        <div class="panel reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Крышевание</div>
+              <div class="panel__sub">Защита и стабильность вместо давления.</div>
+            </div>
+            <span class="badge">safe</span>
+          </div>
+
+          <ul>
+            <li><strong>Бизнес получает:</strong> защиту от внешнего давления, спокойную работу, решение конфликтов.</li>
+            <li><strong>Бизнес обязуется:</strong> соблюдать правила, не работать с враждебными сторонами, выполнять договор.</li>
+            <li><strong>Контакт:</strong> один менеджер, понятные сигналы, быстрые решения.</li>
+          </ul>
+        </div>
+
+        <div class="panel reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Отмыв и оптимизация потоков</div>
+              <div class="panel__sub">RP‑описание: внутренняя реорганизация доходов.</div>
+            </div>
+            <span class="badge">finance</span>
+          </div>
+
+          <ul>
+            <li><strong>Форматы:</strong> маркетинг, аренда, сервисные контракты, консалтинг, логистика.</li>
+            <li><strong>Лимиты:</strong> без резких скачков и без лишнего внимания.</li>
+            <li><strong>Отчётность:</strong> weekly‑свод + контроль аномалий.</li>
+          </ul>
+
+          <p class="p muted" style="margin-top:10px">В лоре это подаётся как “настройка контуров”, а не магия.</p>
+        </div>
+
+        <div class="panel reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Реорганизация бизнеса</div>
+              <div class="panel__sub">Меняем структуру — не ломая операционку.</div>
+            </div>
+            <span class="badge">ops</span>
+          </div>
+
+          <ul>
+            <li><strong>Меры:</strong> смена управляющего, стандарты смен, контроль кассы, обучение персонала.</li>
+            <li><strong>Цель:</strong> рост оборота, снижение уязвимостей, устойчивый режим.</li>
+            <li><strong>Принцип:</strong> вмешательство только по проблеме — без лишнего контроля.</li>
+          </ul>
+        </div>
+
+        <div class="panel reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Условия функционирования</div>
+              <div class="panel__sub">База, чтобы всё работало предсказуемо.</div>
+            </div>
+            <span class="badge">rules</span>
+          </div>
+
+          <ul>
+            <li><strong>Отчёт:</strong> оборот, инциденты, риски — коротко и по делу.</li>
+            <li><strong>Репутация:</strong> минимум публичного шума.</li>
+            <li><strong>Персонал:</strong> роли ясны, конфликты не заносятся внутрь смен.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="benefits">
+      <div class="section__head reveal">
+        <h2 class="h2">Плюсы сотрудничества</h2>
+        <p class="muted">Win‑win: бизнесу — защита и рост, структуре — устойчивость и точки влияния.</p>
+      </div>
+
+      <div class="cards">
+        <div class="card reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Для бизнеса</div>
+              <div class="panel__sub">Стабильность и помощь в сложных моментах.</div>
+            </div>
+          </div>
+          <ul>
+            <li>меньше давления со стороны конкурентов</li>
+            <li>быстрее решения спорных ситуаций</li>
+            <li>рост оборота через “тихое влияние”</li>
+            <li>понятные правила без качелей</li>
+          </ul>
+        </div>
+
+        <div class="card reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Для структуры</div>
+              <div class="panel__sub">Управляемая база на дистанции.</div>
+            </div>
+          </div>
+          <ul>
+            <li>точки присутствия и переговоров</li>
+            <li>стабильная экономика без резких движений</li>
+            <li>поводы для RP‑событий и кейсов</li>
+            <li>устойчивость и контроль рисков</li>
+          </ul>
+        </div>
+
+        <div class="card reveal">
+          <div class="panel__head">
+            <div>
+              <div class="panel__title">Для сюжета</div>
+              <div class="panel__sub">“Живые” переходы в хронике.</div>
+            </div>
+          </div>
+          <ul>
+            <li>этапы захвата (0–100%)</li>
+            <li>инциденты → решения → последствия</li>
+            <li>роли персонажей и ответственность</li>
+            <li>доход/риски/события как механика</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel reveal" style="margin-top:14px">
+        <div class="panel__head">
+          <div>
+            <div class="panel__title">Связать с кейсами</div>
+            <div class="panel__sub">Если бизнес “качает” — в кейсы попадают инциденты, переговоры и последствия.</div>
+          </div>
+          <a class="btn btn--primary" href="./cases.html">Открыть кейсы →</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap footer__inner">
+        <div>Ballas • Businesses</div>
+        <button class="btn btn--ghost" id="themeBtn2" type="button">Тема</button>
+      </div>
+    </footer>
+  </main>
+
+  <button class="btn btn--primary toTop" id="toTop" type="button" aria-label="Наверх">↑ Наверх</button>
+
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close="1" tabindex="-1"></div>
+    <div class="modal__panel" role="document">
+      <div class="modal__head">
+        <div>
+          <div class="modal__title" id="modalTitle">—</div>
+        </div>
+        <button class="btn btn--ghost" data-close="1" type="button">Закрыть</button>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+      <div class="modal__foot">
+        <button class="btn btn--primary" data-close="1" type="button">Ок</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
