@@ -10,7 +10,17 @@
 <body class="sheetPage">
   <a class="skip" href="#main">Перейти к содержимому</a>
 
-  <div class="bg" aria-hidden="true">
+  
+
+  <div class="pageLoader" id="pageLoader" aria-hidden="true">
+    <div class="pageLoader__inner">
+      <div class="pageLoader__mark" aria-hidden="true"></div>
+      <div class="pageLoader__title">Ballas</div>
+      <div class="pageLoader__sub">Lore Hub • RP</div>
+      <div class="pageLoader__bar" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+<div class="bg" aria-hidden="true">
     <div class="bg__blob bg__blob--1"></div>
     <div class="bg__blob bg__blob--2"></div>
     <div class="bg__blob bg__blob--3"></div>
@@ -62,10 +72,19 @@
 
   <main id="main">
     <section class="section wrap">
-      <div class="reveal" style="text-align:center; max-width: 940px; margin:0 auto">
-        <div class="eyebrow">Анкета персонажа</div>
-        <h1 class="h2">Шаг 3 — Характер</h1>
-        <p class="p">Всё, что ты вводишь, <strong>автосохраняется</strong> в браузере. Ничего не отправляется, пока ты не нажмёшь «Отправить» на последнем шаге.</p>
+      <div class="ritual reveal">
+        <div class="ritual__kicker">Ритуал создания • шаг 3 из 6</div>
+        <div class="ritual__title">Нрав: сильные стороны и границы</div>
+        <p class="ritual__sub">Здесь мы задаём тон: что персонаж делает легко, а что никогда не простит. Чем точнее границы — тем чище конфликт и интереснее сцены.</p>
+
+        <div class="ritualSteps" aria-label="Шаги ритуала">
+          <a class="ritualSteps__pill" href="sheet_profile.html"><span class="ritualSteps__num">1</span> Искра</a>
+          <a class="ritualSteps__pill" href="sheet_backstory.html"><span class="ritualSteps__num">2</span> Корни</a>
+          <a class="ritualSteps__pill is-active" href="sheet_traits.html"><span class="ritualSteps__num">3</span> Нрав</a>
+          <a class="ritualSteps__pill" href="sheet_connections.html"><span class="ritualSteps__num">4</span> Узлы</a>
+          <a class="ritualSteps__pill" href="sheet_goals.html"><span class="ritualSteps__num">5</span> Ставки</a>
+          <a class="ritualSteps__pill" href="sheet_scenes.html"><span class="ritualSteps__num">6</span> Сцены</a>
+        </div>
       </div>
 
       <div class="sheetShell">

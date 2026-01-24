@@ -2,6 +2,11 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
+  // Mark JS presence for progressive enhancements
+  document.documentElement.classList.add('js');
+
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   const root = document.documentElement.getAttribute('data-root') || '.';
   const rjoin = (p) => {
     // join relative to root without introducing double slashes
@@ -28,7 +33,7 @@
 
   const updateThemeBtn = () => {
     const cur = html.getAttribute('data-theme') || 'dark';
-    const text = cur === 'dark' ? '🌙 Dark' : '☀️ Light';
+    const text = cur === 'dark' ? '🌙 Тёмная' : '☀️ Светлая';
     const label = cur === 'dark' ? 'Тема: тёмная (нажмите для светлой)' : 'Тема: светлая (нажмите для тёмной)';
 
     ['themeBtn', 'themeBtn2'].forEach((id) => {
@@ -46,18 +51,49 @@
     // ignore
   }
 
-  $('#themeBtn')?.addEventListener('click', () => {
+  const switchThemeAnimated = (e) => {
     const cur = html.getAttribute('data-theme') || 'dark';
-    setTheme(cur === 'dark' ? 'light' : 'dark');
-  });
+    const next = cur === 'dark' ? 'light' : 'dark';
+    if (prefersReduced) {
+      setTheme(next);
+      return;
+    }
 
-  $('#themeBtn2')?.addEventListener('click', () => {
-    const cur = html.getAttribute('data-theme') || 'dark';
-    setTheme(cur === 'dark' ? 'light' : 'dark');
-  });
+    // Coordinates for the wipe origin (mouse/tap). Fallback to center of button.
+    const btn = e?.currentTarget;
+    const r = btn?.getBoundingClientRect?.();
+    const x = (e?.clientX ?? (r ? r.left + r.width / 2 : innerWidth / 2));
+    const y = (e?.clientY ?? (r ? r.top + r.height / 2 : 64));
+
+    // Snapshot current background so overlay stays in the old theme color.
+    const oldBg = getComputedStyle(document.body).backgroundColor || 'rgb(0,0,0)';
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)) + 24;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'themeWipe';
+    overlay.style.background = oldBg;
+    overlay.style.setProperty('--wipe-x', `${x}px`);
+    overlay.style.setProperty('--wipe-y', `${y}px`);
+    overlay.style.clipPath = `circle(${radius}px at ${x}px ${y}px)`;
+    document.body.appendChild(overlay);
+
+    // Switch theme under the overlay, then reveal it by shrinking the circle.
+    setTheme(next);
+
+    const anim = overlay.animate(
+      [
+        { clipPath: `circle(${radius}px at ${x}px ${y}px)` },
+        { clipPath: `circle(0px at ${x}px ${y}px)` },
+      ],
+      { duration: 520, easing: 'cubic-bezier(.21,.61,.35,1)' }
+    );
+    anim.onfinish = () => overlay.remove();
+  };
+
+  $('#themeBtn')?.addEventListener('click', switchThemeAnimated);
+  $('#themeBtn2')?.addEventListener('click', switchThemeAnimated);
 
   // ---------- Reveal (works for dynamically inserted blocks) ----------
-  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let revealObserver = null;
 
   const observeReveals = () => {
@@ -93,6 +129,32 @@
 
   observeReveals();
 
+  // ---------- Page loader (pleasant open; respects reduced motion) ----------
+  const pageLoader = $('#pageLoader');
+
+  const finishLoader = () => {
+    if (!pageLoader) return;
+    pageLoader.classList.add('is-done');
+    // remove after transition
+    setTimeout(() => pageLoader.remove(), 520);
+  };
+
+  // If page is restored from bfcache (back/forward), ensure loader is gone.
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) finishLoader();
+  });
+
+  // Start nice enter animation on every page
+  document.body.classList.add('pageEnter');
+  if (prefersReduced) {
+    finishLoader();
+  } else {
+    // Wait a frame so CSS can apply
+    requestAnimationFrame(() => {
+      setTimeout(finishLoader, 260);
+    });
+  }
+
   // ---------- Smooth page transitions (internal links) ----------
   // Keeps navigation feeling snappy while avoiding the "hard cut".
   // Skips new-tab / modified clicks.
@@ -119,8 +181,26 @@
 
     if (!main) return;
     e.preventDefault();
+
+    // If supported, use View Transitions API for an extra-smooth cross-page feel.
+    // Falls back to a short exit animation.
+    document.body.classList.add('is-leaving');
+    const go = () => { location.href = href; };
+
+    if (document.startViewTransition && !prefersReduced) {
+      try {
+        document.startViewTransition(() => {
+          // We still navigate normally; this mainly improves the perceived transition.
+          go();
+        });
+        return;
+      } catch (_) {
+        // fallback below
+      }
+    }
+
     main.style.animation = 'pageExit .22s cubic-bezier(.21,.61,.35,1) both';
-    setTimeout(() => { location.href = href; }, 180);
+    setTimeout(go, 180);
   }, true);
 
   // ---------- Nav spy (index only, if anchors exist) ----------
@@ -185,12 +265,18 @@
   // ---------- Scroll progress + toTop ----------
   const progress = $('#scrollProgress');
   const toTop = $('#toTop');
+  const topbar = $('#topbar');
 
   const onScroll = () => {
     const h = document.documentElement;
     const max = Math.max(1, h.scrollHeight - h.clientHeight);
     const p = Math.min(1, Math.max(0, h.scrollTop / max));
     if (progress) progress.style.width = (p * 100).toFixed(2) + '%';
+
+    // Sticky header state (subtle elevation + tighter spacing)
+    if (topbar) {
+      topbar.classList.toggle('topbar--scrolled', h.scrollTop > 10);
+    }
 
     if (toTop) {
       const on = h.scrollTop > 700;
@@ -1077,5 +1163,41 @@
   };
 
   document.addEventListener('click', intercept);
+
+
+  // ---------- Card spotlight (subtle) ----------
+  // Drives CSS radial highlight with --mx/--my variables.
+  const spotlightCards = $$('.card');
+  spotlightCards.forEach((card) => {
+    card.addEventListener('pointermove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / Math.max(1, r.width)) * 100;
+      const y = ((e.clientY - r.top) / Math.max(1, r.height)) * 100;
+      card.style.setProperty('--mx', x.toFixed(2) + '%');
+      card.style.setProperty('--my', y.toFixed(2) + '%');
+    }, { passive: true });
+  });
+
+  // ---------- Ripple on buttons ----------
+  // Small, tasteful ripple that respects reduced motion.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) {
+    const rippleTargets = $$('.btn, .iconBtn');
+    rippleTargets.forEach((el) => {
+      el.addEventListener('pointerdown', (e) => {
+        // Only left-click / primary touch
+        if (e.button !== undefined && e.button !== 0) return;
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const s = document.createElement('span');
+        s.className = 'ripple';
+        s.style.left = x + 'px';
+        s.style.top = y + 'px';
+        el.appendChild(s);
+        setTimeout(() => s.remove(), 650);
+      }, { passive: true });
+    });
+  }
 
 })();

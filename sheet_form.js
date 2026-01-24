@@ -487,6 +487,9 @@
   const reviewBlock = isScenesPage ? qs('#reviewBlock') : null;
   const libraryDetails = isScenesPage ? qs('#libraryDetails') : null;
   const sceneLibraryWrap = isScenesPage ? qs('#sceneLibrary') : null;
+  const bioBtn = isScenesPage ? qs('#bioBtn') : null;
+  const bioCopyBtn = isScenesPage ? qs('#bioCopyBtn') : null;
+  const bioOut = isScenesPage ? qs('#bioOutput') : null;
 
   const renderReview = () => {
     if (!reviewBlock) return;
@@ -574,6 +577,132 @@
     renderScenes(scenes);
     return scenes;
   };
+
+  // --------- Bio / "квента" generator (foundation for future automation) ---------
+  // Goal: create a coherent short biography that is consistent with the filled fields,
+  // with some controlled randomness.
+  const pick = (arr, seed) => {
+    if (!arr?.length) return '';
+    const h = hashString(String(seed));
+    return arr[h % arr.length];
+  };
+
+  const short = (txt, max = 180) => {
+    const s = norm(txt).replace(/\s+/g, ' ');
+    if (s.length <= max) return s;
+    return s.slice(0, max - 1).trimEnd() + '…';
+  };
+
+  const buildBio = (seed = '') => {
+    const name = norm(data.name) || 'Безымянный';
+    const alias = norm(data.alias);
+    const role = norm(data.role) || 'роль не указана';
+    const set = norm(data.set) || 'сет не указан';
+    const tags = norm(data.tags);
+    const dob = norm(data.dob);
+
+    const tone = pick([
+      'спокойный',
+      'сдержанный',
+      'неразговорчивый',
+      'жёстко-собранный',
+      'улыбчивый, но внимательный'
+    ], seed + name + role);
+
+    const core = pick([
+      'держит слово и цену слову знает',
+      'не лезет на рожон, но границу держит',
+      'сначала слушает, потом действует',
+      'умеет решать тихо, если это выгоднее',
+      'на районе ценит порядок больше шума'
+    ], seed + set + tags);
+
+    const flaw = pick([
+      'слишком долго тянет паузу, пока другие уже сделали ход',
+      'плохо переносит хаос и иногда перегибает с контролем',
+      'не умеет отпускать старые обещания',
+      'всегда ищет второе дно — и иногда видит его там, где его нет',
+      'слишком бережёт фасад, даже когда пора резать по живому'
+    ], seed + name + 'flaw');
+
+    const hook = pick([
+      'в 2026 у него/неё есть цель, которая требует аккуратных союзов',
+      'в 2026 ему/ей нужно закрыть долг, о котором никто не должен узнать',
+      'в 2026 он/она пытается удержать границу без эскалации',
+      'в 2026 у него/неё появляется шанс подняться — но цена неприятная',
+      'в 2026 всплывает прошлое и вынуждает выбрать сторону'
+    ], seed + role + 'hook');
+
+    const lineBackstory = filled(data.backstory) ? short(data.backstory, 240) : pick([
+      'Прошлое не расписывает — говорит только то, что нужно для дела.',
+      'Из прошлого вынес привычку сначала оценивать риски, потом открываться.',
+      'Район принял его/её не сразу: пришлось заслужить доверие поступками.'
+    ], seed + 'back');
+
+    const lineTraits = filled(data.traits) ? short(data.traits, 220) : core;
+    const lineLimits = filled(data.limits) ? short(data.limits, 180) : flaw;
+
+    const lineConnections = filled(data.connections)
+      ? `Связи: ${short(data.connections, 220)}.`
+      : pick([
+        'Связи держит короткими, но надёжными: лучше три имени, чем тридцать знакомых.',
+        'Знает пару людей, которые помогают решать вопросы без шума — и это взаимно.'
+      ], seed + 'conn');
+
+    const lineGoals = filled(data.goals) ? `Цели: ${short(data.goals, 220)}.` : hook + '.';
+    const lineSecret = filled(data.secret) ? `Секрет/крючок: ${short(data.secret, 220)}.` : '';
+
+    const title = `${name}${alias ? ` «${alias}»` : ''}`;
+    const meta = `Роль: ${role} • Set: ${set}${dob ? ` • DOB: ${dob}` : ''}${tags ? ` • Теги: ${tags}` : ''}`;
+
+    const txt = [
+      title,
+      meta,
+      '',
+      `По тону — ${tone}.`,
+      lineBackstory,
+      '',
+      `Характер: ${lineTraits}.`,
+      `Границы/слабое место: ${lineLimits}.`,
+      '',
+      lineConnections,
+      lineGoals,
+      lineSecret,
+      '',
+      'Как это играть:',
+      '• Чётко формулируй ставку сцены (что нужно получить/сохранить).',
+      '• Держи "Heat" в голове: лучше один точный шаг, чем три громких.',
+      '• Завершай сцену крючком (обещание, долг, контакт, вопрос).' 
+    ].filter(Boolean).join('\n');
+
+    return txt;
+  };
+
+  const renderBio = (seed = '') => {
+    if (!bioOut) return;
+    const txt = buildBio(seed || String(Date.now()));
+    bioOut.textContent = txt;
+    return txt;
+  };
+
+  bioBtn?.addEventListener('click', () => {
+    if (!minReadyToSubmit(data)) {
+      setStatus(submitStatus, 'Для генерации квенты заполни минимум: Имя, Роль и Set (шаг 1).', 'warn');
+      return;
+    }
+    renderBio(String(Date.now()));
+    setStatus(submitStatus, 'Квента сгенерирована. Можно править поля и генерировать снова.', 'ok');
+  });
+
+  bioCopyBtn?.addEventListener('click', async () => {
+    const txt = bioOut?.textContent || '';
+    if (!txt.trim()) {
+      setStatus(submitStatus, 'Сначала нажми «Сгенерировать квенту».', 'warn');
+      return;
+    }
+    const ok = await copyText(txt);
+    setStatus(submitStatus, ok ? 'Квента скопирована.' : 'Не получилось скопировать автоматически. Выдели текст и скопируй вручную.', ok ? 'ok' : 'warn');
+  });
 
   const buildPayload = () => {
     const now = new Date().toISOString();
